@@ -1,9 +1,19 @@
-import express from 'express';
+import express,{Request,Response} from 'express'
+import { Server } from 'socket.io'
+import { createServer } from 'http'
+
+ 
 const app = express();
-const port =3000
-app.listen(port,()=>{
-    console.log(`server running on ${[port]}`)
+const httpserver = createServer(app);
+
+const io = new Server(httpserver,{
+
 })
-app.get("/",(req,res)=>{
-    res.send("hello")
+io.on("connection",(socket) =>{
+    console.log(socket.id)
+
 })
+httpserver.listen(3000, () => {
+    console.log('Server is listening on port 3000');
+  });
+  
